@@ -68,6 +68,15 @@
     "istream": "cpp",
     "ostream": "cpp",
     "sstream": "cpp",
-    "streambuf": "cpp"
-  }
+    "streambuf": "cpp",
+    "*.inc": "cpp",
+    "__locale": "cpp",
+    "bitset": "cpp",
+    "cstdarg": "cpp",
+    "ios": "cpp",
+    "locale": "cpp",
+    "set": "cpp",
+    "iostream": "cpp"
+  },
+  "C_Cpp.intelliSenseEngineFallback": "Disabled"
 }

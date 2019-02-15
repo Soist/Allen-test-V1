@@ -12,6 +12,8 @@
 RevDigit Robot::m_revDigit;
 OI Robot::m_oi;
 CargoIntake Robot::cargoIntake;
+Drive Robot::drive;
+Pneumatics Robot::pneumatics;
 
 void Robot::RobotInit() {
 }
@@ -24,7 +26,16 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  if(m_revDigit.GetA())
+  {
+    Pneumatics::compressor->Start();
+  }
+  else if(m_revDigit.GetB())
+  {
+    Pneumatics::compressor->Stop();
+  }
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
@@ -32,10 +43,13 @@ void Robot::RobotPeriodic() {}
  * robot is disabled.
  */
 void Robot::DisabledInit() {
-  m_revDigit.Display("SHUT");
+  CargoIntake::CSM_NEO_Rab->SetIdleMode(rev::CANSparkMax::IdleMode::kCoast);
 }
 
-void Robot::DisabledPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::DisabledPeriodic() {
+  // m_revDigit.Display("SHUT");
+  frc::Scheduler::GetInstance()->Run(); 
+  }
 
 /**
  * This autonomous (along with the chooser code above) shows how to select
@@ -70,7 +84,7 @@ void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
-
+   CargoIntake::CSM_NEO_Rab->SetIdleMode(rev::CANSparkMax::IdleMode::kBrake);
 }
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
